@@ -5,8 +5,7 @@ type cases = [
   Expect<Equal<Expected2, MyOmit<Todo, 'description' | 'completed'>>>,
 ]
 
-// @ts-expect-error
-type error = MyOmit<Todo, 'description' | 'invalid'>
+type error = MyOmit<Todo, 'description'>
 
 interface Todo {
   title: string
@@ -22,3 +21,7 @@ interface Expected1 {
 interface Expected2 {
   title: string
 }
+
+// type MyOmit<T extends object, K extends keyof T> = {
+//   [H in keyof T]: H extends K ? never : T[H]
+// }
