@@ -16,3 +16,12 @@ interface Todo2 {
   readonly description: string
   completed?: boolean
 }
+
+type RemoveReadonly<T extends object> = {
+  +readonly [ I in keyof T]: T[I]
+}
+
+type GetReadonlyKeys<T extends object, K = RemoveReadonly<T> > = K extends K ? K : never
+
+type Hello = GetReadonlyKeys<Todo1>
+//    ^?
