@@ -17,11 +17,8 @@ interface Todo2 {
   completed?: boolean
 }
 
-type RemoveReadonly<T extends object> = {
-  +readonly [ I in keyof T]: T[I]
+type EqualType<T, P extends keyof T> = Equal<Pick<T, P>, { readonly [I in P ]: T[I] }>
+
+type GetReadonlyKeys<T> = keyof {
+  [I in keyof T as EqualType<T, I> extends true ? I : never]: T[I]
 }
-
-type GetReadonlyKeys<T extends object, K = RemoveReadonly<T> > = K extends K ? K : never
-
-type Hello = GetReadonlyKeys<Todo1>
-//    ^?
