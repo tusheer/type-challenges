@@ -1,1 +1,4 @@
-type TupleToObject<T extends readonly any[]> = any
+type TupleToObject<Tuple extends readonly any[]> = {
+  [ I in Tuple[number] ]: I
+}
+
